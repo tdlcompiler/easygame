@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let board = Array(9).fill(null);
   let currentPlayer = "X";
   let isGameActive = true;
-  let xWins = 0;
-  let oWins = 0;
+  let xWins = getCookie("xWins") || 0;
+  let oWins = getCookie("oWins") || 0;
 
   xWinsElem.textContent = xWins;
   oWinsElem.textContent = oWins;
@@ -78,12 +78,14 @@ document.addEventListener("DOMContentLoaded", () => {
     if (winner === "X") {
       xWins++;
       xWinsElem.textContent = xWins;
+      setCookie("xWins", xWins);
     } else {
       oWins++;
       oWinsElem.textContent = oWins;
+      setCookie("oWins", oWins);
     }
   }
-  
+
   function drawWinningLine(a, b, c) {
   const line = document.createElement("div");
   line.classList.add("line");
@@ -133,5 +135,17 @@ document.addEventListener("DOMContentLoaded", () => {
     oWins = 0;
     xWinsElem.textContent = xWins;
     oWinsElem.textContent = oWins;
+    setCookie("xWins", xWins);
+    setCookie("oWins", oWins);
+  }
+
+  function setCookie(name, value) {
+    document.cookie = `${name}=${value}; path=/`;
+  }
+
+  function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(";").shift();
   }
 });
