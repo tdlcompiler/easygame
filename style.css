@@ -50,6 +50,14 @@ body {
   cursor: pointer;
 }
 
+.line {
+  background-color: red;
+  height: 5px;
+  position: absolute;
+  z-index: 10;
+  transition: width 0.5s ease;
+}
+
 @font-face {
   font-family: 'Google Sans';
   src: url('fonts/GoogleSans-Regular.woff2') format('woff2'),
